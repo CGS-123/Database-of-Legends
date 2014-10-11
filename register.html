@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="css/bootstrap.min.css" rel ="stylesheet">
+    <link href="styles.css" rel ="stylesheet">
+    <title></title>
+</head>
+<body>
+<div id ="registerHeader" class="container text-center" ng-hide="userObj.loggedIn == true">
+    <h2>Register</h2>
+</div>
+
+<div id="registerContainer" class= "container text-left" id="page-wrapper" ng-hide="userObj.loggedIn == true">
+
+    <form class="form" name="registerForm" novalidate ng-submit="register()" ng-hide="userObj.loggedIn == true">
+
+        <div class="form-group" ng-class="{'has-error' : registerForm.username.$invalid && registerForm.username.$dirty,
+        'has-success' : registerForm.username.$valid && registerForm.username.$dirty}">
+            <label for="username" class="control-label">Username</label>
+            <input type="text" name="username" class="form-control" ng-model="user.username" ng-minlength="5" id="username" required/>
+            <p class="help-block" ng-show="registerForm.username.$invalid && registerForm.username.$dirty">
+                Username must have at least 5 characters.
+            </p>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error' : registerForm.password.$invalid && registerForm.password.$dirty,
+        'has-success' : registerForm.password.$valid && registerForm.password.$dirty}">
+            <label for="password" class="control-label" >Password</label>
+            <input type="password" name="password" class="form-control"
+                   ng-model="user.password" ng-minlength="6" id="password" required/>
+        </div>
+        <p class="help-block" ng-show="registerForm.password.$invalid && registerForm.password.$dirty">
+            Password must have at least 6 characters
+        </p>
+
+        <div class="form-group" ng-class="{'has-error' : registerForm.confirm_password.$invalid && registerForm.confirm_password.$dirty,
+        'has-success' : registerForm.confirm_password.$valid && registerForm.confirm_password.$dirty}">
+            <label for="confirm_password" class="control-label" >Confirm password</label>
+            <input type="password" name="confirm_password" class="form-control"
+                   ng-model="user.confirm_password" ng-minlength="6" id="confirm_password"
+                   ui-validate="'$value == user.password'" ui-validate-watch="'user.password'" required/>
+        </div>
+        <p class="help-block" ng-show="registerForm.confirm_password.$dirty && registerForm.confirm_password.$error.validator">
+            The passwords don't match.
+        </p>
+
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Register" ng-disabled="registerForm.$invalid ||
+                registerForm.confirm_password.$error.validator " />
+        </div>
+    </form>
+    {{message}}
+</div>
+
+<div class="container text-center"id="message" ng-show="userObj.loggedIn == true">
+    <h1>{{userObj.message}}{{userObj.username}}</h1>
+</div>
+
+<div class="container text-center"id="message" ng-show="userObj.loggedIn == true">
+    <h3>If you want to register, please log out and try again</h3>
+</div>
+
+</body>
+</html>

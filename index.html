@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="leagueApp">
+<head lang="en">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, intial-scale=1.0" >
+    <title>Database of Legends</title>
+    <link href="css/bootstrap.min.css" rel ="stylesheet">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css">
+    <link href="styles.css" rel ="stylesheet">
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="jumbotron">
+
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" id="header" ng-controller="signInController">
+        <div class="container">
+
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#home">Database of Legends</a>
+            </div>
+
+            <!--navbar-->
+            <div class="collapse navbar-collapse navHeaderCollapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class=""><a href ="#home">Home</a></li>
+                    <li class=""><a href ="#select">Select Character</a></li>
+                    <li class=""><a href ="#add">Custom Characters</a></li>
+                    <li class=""><a href ="#delete">Delete Custom Characters</a></li>
+                    <li class=""><a href ="#signIn">Sign In</a></li>
+                    <li class=""><a href ="#register">Register Here</a></li>
+                    <li>
+                        <div class="text-right" ng-controller="logoutController" id="logoutHolder" ng-show="userObj.loggedIn == true">
+                            <form ng-submit="logout()">
+                                <input id="logoutBtn" class="btn btn-primary btn" type="submit" value="Log out"/>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="main">
+        <!--where individual pages will be shown from Angular routing-->
+        <div class="page {{ pageClass }}" ng-view=""></div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.css"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-animate.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-cookies.js"></script>
+
+
+
+
+
+    <script src="leagueDB.js" ></script>
+    <script src="js/bootstrap.js"></script>
+
+</body>
+</html>

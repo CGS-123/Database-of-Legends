@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="css/bootstrap.min.css" rel ="stylesheet">
+    <link href="styles.css" rel ="stylesheet">
+    <title></title>
+</head>
+<body>
+
+
+<div class="container text-center" ng-show="userObj.loggedIn == true" id="deleteContainer">
+    <h1>Delete Custom Character</h1>
+    <form class="form" name="deleteForm" ng-submit="deleteCharacter()" id="deleteForm">
+
+
+        <div class="container text-left" id="deleteCharacter">
+            <h4><strong>Your Characters</strong></h4>
+            <ul id="listDeleteChar">
+                <li ng-repeat="item in characters |  orderBy: 'name'" >
+                    <input type="radio" value="{{item.name}}" name="charName" ng-model="custom_character.charName"/> {{item.name }}</li>
+            </ul>
+
+
+        </div>
+
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Delete Character"/>
+        </div>
+    </form>
+
+
+
+</div>
+
+<!--This section only shows when user is not logged in-->
+<div class= "container text-center" ng-hide="userObj.loggedIn == true">
+    <h3>You need to sign in to access this feature</h3>
+</div>
+
+</body>
+</html>

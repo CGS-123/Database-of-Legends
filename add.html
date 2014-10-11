@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="css/bootstrap.min.css" rel ="stylesheet">
+    <link href="styles.css" rel ="stylesheet">
+    <title></title>
+</head>
+<body>
+
+
+<div class="container" ng-show="userObj.loggedIn == true" id="customerCharInfo">
+    <h1>Custom Characters</h1>
+    <br>
+    <br>
+    <div >
+
+        <!--List of Characters Section-->
+        <div id="characterList">
+            <p>
+                <strong>Enter a character name</strong>
+            </p>
+            <input type="text" ng-model="searchName" />
+
+            <ul>
+                <li ng-repeat="item in characters | filter:{name:searchName}  | orderBy: 'name'" >{{item.name }}</li>
+            </ul>
+        </div>
+        <div ng-repeat="person in filtered = (characters | filter:{name:searchName})"></div>
+
+        <!--Number of Characters Section-->
+        <div id="numberOfEntries">
+            Number of characters listed: {{filtered.length}}
+        </div>
+
+        <!--Character Info Section-->
+        <div id="characterInfo" ng-show="filtered.length === 1">
+            <p>
+                <strong>Character info </strong>
+            </p>
+            <ul>
+                <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Description: </strong> {{item.description }}</li>
+                <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Gender: </strong> {{item.gender }}</li>
+                <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Race: </strong> {{item.race }}</li>
+                <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Birthplace: </strong> {{item.birthplace }}</li>
+                <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Occupation: </strong> {{item.occupation }}</li>
+                <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Faction: </strong> {{item.faction }}</li>
+            </ul>
+        </div>
+        <!--Roles Section-->
+        <div id="roles" ng-show="filtered.length === 1">
+            <p>
+                <strong>Roles</strong>
+            </p>
+            <ul>
+                <li ng-repeat="name in roles | filter:{name:searchName} | orderBy: 'name'" > {{name.role_name }}</li>
+            </ul>
+        </div>
+        <!--Lanes Section-->
+        <div id="lanes" ng-show="filtered.length === 1">
+            <p>
+                <strong>Lanes played </strong>
+            </p>
+            <ul>
+                <li ng-repeat="thing in lanes | filter:{name:searchName} | orderBy: 'name'" >{{thing.lane_name }}</li>
+            </ul>
+        </div>
+
+        <!--Abilities Section-->
+        <div id="abilities" ng-show="filtered.length === 1">
+            <p>
+                <strong>Passive </strong>
+            </p>
+            <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.passive }}</pre>
+
+            <p>
+                <strong>Q </strong>
+            </p>
+            <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.Q }}</pre>
+
+            <p>
+                <strong>W </strong>
+            </p>
+            <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.W }}</pre>
+
+            <p>
+                <strong>E </strong>
+            </p>
+            <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.E }}</pre>
+
+            <p>
+                <strong>R </strong>
+            </p>
+            <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.ultimate }}</pre>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container text-center" ng-show="userObj.loggedIn == true" id="addContainer">
+    <h1>Add a Character</h1>
+    <form class="form" name="basicInfo" ng-submit="addCharacter()" id="addForm">
+
+        <div id="basicInfo">
+            <div class="form-group">
+                <label for="name" class="control-label"><strong>Name</strong></label>
+                <input type="text" name="name" class="form-control" ng-model="custom_character.name" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="control-label"><strong>Description</strong></label>
+                <input type="text" name="description" class="form-control" ng-model="custom_character.description" id="description" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="gender" class="control-label"><strong>Gender</strong></label>
+                <input type="text" name="gender" class="form-control" ng-model="custom_character.gender" id="gender" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="race" class="control-label"><strong>Race</strong></label>
+                <input type="text" name="race" class="form-control" ng-model="custom_character.race" id="race" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="birthplace" class="control-label"><strong>Birthplace</strong></label>
+                <input type="text" name="birthplace" class="form-control" ng-model="custom_character.birthplace" id="birthplace" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="occupation" class="control-label"><strong>Occupation</strong></label>
+                <input type="text" name="occupation" class="form-control" ng-model="custom_character.occupation" id="occupation" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="faction" class="control-label"><strong>Faction</strong></label>
+                <input type="text" name="faction" class="form-control" ng-model="custom_character.faction" id="faction" required/>
+            </div>
+        </div>
+
+
+        <div class="container text-left" id="custom_lanes">
+            <h4><strong>Lanes</strong></h4>
+
+            <input type="hidden" value="0" name="top" ng-model="custom_character.top"/>
+            <input type="checkbox" value="1" name="top" ng-model="custom_character.top"/> Top <br />
+
+            <input type="hidden" value="0" name="jungle" ng-model="custom_character.jungle"/>
+            <input type="checkbox" value="1" name="jungle" ng-model="custom_character.jungle"/> Jungle <br />
+
+            <input type="hidden" value="0" name="mid" ng-model="custom_character.mid"/>
+            <input type="checkbox" value="1" name="mid" ng-model="custom_character.mid"/> Mid <br />
+
+            <input type="hidden" value="0" name="support_lane" ng-model="custom_character.support_lane"/>
+            <input type="checkbox" value="1" name="support_lane" ng-model="custom_character.support_lane"/> Support <br />
+
+            <input type="hidden" value="0" name="ADC" ng-model="custom_character.adc"/>
+            <input type="checkbox" value="1" name="ADC" ng-model="custom_character.adc"/> ADC <br />
+        </div>
+
+        <div class="container text-left" id="custom_roles">
+            <h4><strong>Roles</strong></h4>
+
+            <input type="hidden" value="0" name="assassin" ng-model="custom_character.assassin"/>
+            <input type="checkbox" value="1" name="assassin" ng-model="custom_character.assassin"/> Assassin <br />
+
+            <input type="hidden" value="0" name="fighter" ng-model="custom_character.fighter"/>
+            <input type="checkbox" value="1" name="fighter" ng-model="custom_character.fighter"/> Fighter <br />
+
+            <input type="hidden" value="0" name="mage" ng-model="custom_character.mage"/>
+            <input type="checkbox" value="1" name="mage" ng-model="custom_character.mage"/> Mage <br />
+
+            <input type="hidden" value="0" name="support_role" ng-model="custom_character.support_role"/>
+            <input type="checkbox" value="1" name="support_role" ng-model="custom_character.support_role"/> Support <br />
+
+            <input type="hidden" value="0" name="tank" ng-model="custom_character.tank"/>
+            <input type="checkbox" value="1" name="tank" ng-model="custom_character.tank"/> Tank <br />
+
+            <input type="hidden" value="0" name="marksman" ng-model="custom_character.marksman"/>
+            <input type="checkbox" value="1" name="marksman" ng-model="custom_character.marksman"/> Marksman <br />
+
+            <div class="form-group" id="addAbilityButton">
+                <input class="btn btn-primary" type="submit" value="Create Character"/>
+            </div>
+        </div>
+
+
+    </form>
+
+
+
+</div>
+
+
+<div class="container text-center" ng-show="userObj.loggedIn == true" id="abilityContainer">
+    <h1>Add Abilities</h1>
+    <form class="form" name="abilities" ng-submit="addAbilities()" id="abilityForm">
+
+
+        <div class="container text-left" id="customCharAbilities">
+            <h4><strong>Your Characters</strong></h4>
+            <ul id="listCharAbilities">
+                <li ng-repeat="item in characters |  orderBy: 'name'" >
+                    <input type="radio" value="{{item.name}}" name="charName" ng-model="custom_character.charName"/> {{item.name }}</li>
+            </ul>
+
+
+        </div>
+
+        <div class ="container" id="custom_abilities">
+            <div class="form-group">
+                <label for="passive" class="control-label"><strong>Passive</strong></label>
+                <textarea cols="40" rows="5" name="passive" class="form-control" ng-model="custom_character.passive" id="passive" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="q" class="control-label"><strong>Q</strong></label>
+                <textarea cols="40" rows="5" name="q" class="form-control" ng-model="custom_character.q" id="q" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="w" class="control-label"><strong>W</strong></label>
+                <textarea cols="40" rows="5" name="w" class="form-control" ng-model="custom_character.w" id="w" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="e" class="control-label"><strong>E</strong></label>
+                <textarea cols="40" rows="5" name="e" class="form-control" ng-model="custom_character.e" id="e" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="ultimate" class="control-label"><strong>Ultimate</strong></label>
+                <textarea cols="40" rows="5" name="ultimate" class="form-control" ng-model="custom_character.ultimate" id="ultimate" required/>
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Add Abilities"/>
+        </div>
+    </form>
+
+
+
+</div>
+
+
+
+
+<div class= "container text-center" ng-hide="userObj.loggedIn == true">
+    <h3>You need to sign in to access this feature</h3>
+</div>
+
+</body>
+</html>

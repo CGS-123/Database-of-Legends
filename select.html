@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="css/bootstrap.min.css" rel ="stylesheet">
+    <link href="styles.css" rel ="stylesheet">
+    <title></title>
+</head>
+<body>
+
+<div class="jumbotron">
+    <h1>Select a Character</h1>
+        <br>
+        <br>
+    <div class="container" >
+
+        <!--List of Characters Section-->
+        <div id="characterList">
+            <p>
+                <strong>Enter a character name</strong>
+            </p>
+                <input type="text" ng-model="searchName" />
+
+                 <ul>
+                     <li ng-repeat="item in characters | filter:{name:searchName}  | orderBy: 'name'" >{{item.name }}</li>
+                 </ul>
+                    <p>
+                        {{fail}}
+                        {{fail2}}
+                        {{fail3}}
+                    </p>
+        </div>
+            <div ng-repeat="person in filtered = (characters | filter:{name:searchName})"></div>
+
+                <!--Number of Characters Section-->
+                <div id="numberOfEntries">
+                    Number of characters listed: {{filtered.length}}
+                </div>
+
+                    <!--Character Info Section-->
+                    <div id="characterInfo" ng-show="filtered.length === 1">
+                        <p>
+                            <strong>Character info </strong>
+                        </p>
+                                <ul>
+                                    <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Description: </strong> {{item.description }}</li>
+                                    <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Gender: </strong> {{item.gender }}</li>
+                                    <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Race: </strong> {{item.race }}</li>
+                                    <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Birthplace: </strong> {{item.birthplace }}</li>
+                                    <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Occupation: </strong> {{item.occupation }}</li>
+                                    <li ng-repeat="item in characters | filter:{name:searchName} | orderBy: 'name'" ><strong>Faction: </strong> {{item.faction }}</li>
+                                </ul>
+                    </div>
+                        <!--Roles Section-->
+                        <div id="roles" ng-show="filtered.length === 1">
+                              <p>
+                                  <strong>Roles</strong>
+                              </p>
+                                    <ul>
+                                        <li ng-repeat="name in roles | filter:{name:searchName} | orderBy: 'name'" > {{name.role_name }}</li>
+                                    </ul>
+                        </div>
+                        <!--Lanes Section-->
+                            <div id="lanes" ng-show="filtered.length === 1">
+                                  <p>
+                                      <strong>Lanes played </strong>
+                                  </p>
+                                        <ul>
+                                            <li ng-repeat="thing in lanes | filter:{name:searchName} | orderBy: 'name'" >{{thing.lane_name }}</li>
+                                        </ul>
+                            </div>
+
+                        <!--Abilities Section-->
+                                <div id="abilities" ng-show="filtered.length === 1">
+                                    <p>
+                                        <strong>Passive </strong>
+                                    </p>
+                                        <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.passive }}</pre>
+
+                                    <p>
+                                        <strong>Q </strong>
+                                    </p>
+                                        <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.Q }}</pre>
+
+                                    <p>
+                                        <strong>W </strong>
+                                    </p>
+                                        <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.W }}</pre>
+
+                                    <p>
+                                        <strong>E </strong>
+                                    </p>
+                                        <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.E }}</pre>
+
+                                    <p>
+                                        <strong>R </strong>
+                                    </p>
+                                        <pre ng-repeat="ability in abilities | filter:{name:searchName} | orderBy: 'name'" > {{ability.ultimate }}</pre>
+
+                                </div>
+                            </div>
+
+</div>
+
+</body>
+</html>

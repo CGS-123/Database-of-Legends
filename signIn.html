@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="css/bootstrap.min.css" rel ="stylesheet">
+    <link href="styles.css" rel ="stylesheet">
+    <title></title>
+</head>
+<body>
+
+<div id ="signInHeader" class="container text-center" ng-hide="userObj.loggedIn == true">
+    <h2>Sign In</h2>
+</div>
+<div id="loginContainer" class= "container text-left" id="page-wrapper" ng-hide="userObj.loggedIn == true">
+
+    <form class="form" name="loginForm" novalidate ng-submit="login()" ng-hide="userObj.loggedIn == true">
+
+        <div class="form-group" ng-class="{'has-error' : loginForm.username.$invalid && loginForm.username.$dirty,
+        'has-success' : loginForm.username.$valid && loginForm.username.$dirty}">
+            <label for="username" class="control-label">Username</label>
+            <input type="text" name="username" class="form-control" ng-model="user.username" ng-minlength="5" id="username" required/>
+            <p class="help-block" ng-show="loginForm.username.$invalid && loginForm.username.$dirty">
+                Username must have at least 5 characters.
+            </p>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error' : loginForm.password.$invalid && loginForm.password.$dirty,
+        'has-success' : loginForm.password.$valid && loginForm.password.$dirty}">
+            <label for="password" class="control-label" >Password</label>
+            <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="6" id="password" required/>
+        </div>
+        <p class="help-block" ng-show="loginForm.password.$invalid && loginForm.password.$dirty">
+            Password must have at least 6 characters
+        </p>
+
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Sign In" ng-disabled="loginForm.$invalid" />
+        </div>
+    </form>
+    <a title="username: tester, password: password OR username: tester1, password: password"
+       ui-jq="tooltip">Hover over me for sample usernames and passwords</a>
+   <div  id="failMessage" ng-show="userObj.loggedIn == false && uid == ''">
+       {{message}}
+   </div>
+</div>
+
+
+<div class="container text-center"id="message" ng-show="userObj.loggedIn == true">
+    <h1>{{userObj.message}}{{userObj.username}}</h1>
+</div>
+
+</body>
+</html>
